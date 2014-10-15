@@ -41,12 +41,12 @@ public class RoundedSalesTaxesStrategy implements SalesTaxesStrategy {
 	}
 
 	@Override
-	public double getTaxes(Product p) {
+	public double getTaxes(Purchase p) {
 		double result = policy.round(calculateTax(p));
 		return result;
 	}
 
-	private double calculateTax(Product p) {
+	private double calculateTax(Purchase p) {
 		double result = 0;
 		for (SalesTaxesStrategy strategy : compositeTaxStrategy) {
 			result += strategy.getTaxes(p);

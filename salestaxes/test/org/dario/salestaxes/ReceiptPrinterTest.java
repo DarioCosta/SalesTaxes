@@ -19,7 +19,7 @@ public class ReceiptPrinterTest extends TestCase {
 	private boolean test(String input, String output) {
 		String result = "";
 		try {
-			result = printer.getReceipt(ReceiptPrinter.listDataParse(input));
+			result = printer.getFormattedReceipt(input);
 			System.out.println(result);
 		} catch (DataParseException e) {
 			e.printStackTrace();

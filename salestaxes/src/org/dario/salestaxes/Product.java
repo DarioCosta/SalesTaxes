@@ -2,33 +2,24 @@ package org.dario.salestaxes;
 
 public class Product {
 
-	private int quantity;
-	private double price;
-	private boolean imported;
 	private String description;
+	private ProductCategory productCategory = ProductCategory.STANDARD;
 
-	public Product(int quantity, double price, boolean imported,
-			String description) {
-		this.quantity = quantity;
-		this.price = price;
-		this.imported = imported;
+	public Product(String description, ProductCategory productCategory) {
+		if(description==null){
+			description="";
+		}
 		this.description = description;
-	}
-
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public double getPrice() {
-		return price;
-	}
-
-	public boolean isImported() {
-		return imported;
+		if (productCategory != null) {
+			this.productCategory = productCategory;
+		}
 	}
 
 	public String getDescription() {
 		return description;
 	}
 
+	public ProductCategory getProductCategory() {
+		return productCategory;
+	}
 }
