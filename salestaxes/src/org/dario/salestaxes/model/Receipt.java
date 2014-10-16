@@ -3,9 +3,7 @@ package org.dario.salestaxes.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.dario.salestaxes.policies.RoundPolicy;
 import org.dario.salestaxes.policies.SalesTaxesPolicy;
-import org.dario.salestaxes.policies.strategies.TotalTaxesStrategy;
 
 public class Receipt {
 	private List<ReceiptItem> receiptItems = new ArrayList<ReceiptItem>();
@@ -18,7 +16,7 @@ public class Receipt {
 			shoppingBasket = new ShoppingBasket();
 		}
 		if (salesTaxesPolicy == null) {
-			salesTaxesPolicy = new SalesTaxesPolicy(new TotalTaxesStrategy(), new RoundPolicy()) ;
+			salesTaxesPolicy = new SalesTaxesPolicy() ;
 		}
 
 		fillIn(shoppingBasket, salesTaxesPolicy);

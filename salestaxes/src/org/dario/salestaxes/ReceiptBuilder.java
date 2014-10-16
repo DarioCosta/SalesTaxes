@@ -9,9 +9,7 @@ import org.dario.salestaxes.io.ShoppingBasketInputDataParser;
 import org.dario.salestaxes.io.ShoppingBasketInputDataParserFactory;
 import org.dario.salestaxes.model.Receipt;
 import org.dario.salestaxes.model.ShoppingBasket;
-import org.dario.salestaxes.policies.RoundPolicy;
 import org.dario.salestaxes.policies.SalesTaxesPolicy;
-import org.dario.salestaxes.policies.strategies.TotalTaxesStrategy;
 
 public class ReceiptBuilder {
 
@@ -30,8 +28,7 @@ public class ReceiptBuilder {
 		Locale.setDefault(new Locale("en"));
 
 		if (salesTaxesPolicy == null) {
-			salesTaxesPolicy = new SalesTaxesPolicy(new TotalTaxesStrategy(),
-					new RoundPolicy());
+			salesTaxesPolicy = new SalesTaxesPolicy();
 		}
 		this.salesTaxesPolicy = salesTaxesPolicy;
 		parser = ShoppingBasketInputDataParserFactory

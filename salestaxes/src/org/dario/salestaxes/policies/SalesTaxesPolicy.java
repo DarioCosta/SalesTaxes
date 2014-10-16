@@ -9,6 +9,10 @@ public class SalesTaxesPolicy {
 	private SalesTaxesPolicyStrategy salesTaxesStrategy;
 	private RoundPolicy roundPolicy;
 	
+	public SalesTaxesPolicy(){
+		this(null, null);
+	}
+	
 	public SalesTaxesPolicy(SalesTaxesPolicyStrategy salesTaxesStrategy, RoundPolicy roundPolicy){
 		if(salesTaxesStrategy==null){
 			salesTaxesStrategy=new TotalTaxesStrategy();
