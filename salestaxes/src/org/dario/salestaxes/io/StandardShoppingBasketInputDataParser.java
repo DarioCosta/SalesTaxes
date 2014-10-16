@@ -1,8 +1,13 @@
-package org.dario.salestaxes;
+package org.dario.salestaxes.io;
 
-public class ShoppingBasketInputDataParser {
+import org.dario.salestaxes.model.Product;
+import org.dario.salestaxes.model.ProductCategory;
+import org.dario.salestaxes.model.Purchase;
+import org.dario.salestaxes.model.ShoppingBasket;
 
-	public static ShoppingBasket parse(String data) throws DataParseException {
+public class StandardShoppingBasketInputDataParser implements ShoppingBasketInputDataParser{
+
+	public ShoppingBasket parse(String data) throws DataParseException {
 		ShoppingBasket result = new ShoppingBasket();
 		String[] items = data.split("\n");
 		for (int i = 0; i < items.length; i++) {
@@ -11,7 +16,7 @@ public class ShoppingBasketInputDataParser {
 		return result;
 	}
 
-	private static Purchase parseSinglePurchaseData(String data)
+	private Purchase parseSinglePurchaseData(String data)
 			throws DataParseException {
 		try {
 			Purchase result = null;
@@ -31,11 +36,11 @@ public class ShoppingBasketInputDataParser {
 		}
 	}
 
-	private static boolean inferImported(String descr) {
+	private boolean inferImported(String descr) {
 		return descr.contains(" imported ");
 	}
 
-	private static String adjustDescription(String descr, boolean imported) {
+	private String adjustDescription(String descr, boolean imported) {
 		if (imported) {
 			descr=descr.replace(" imported ", " ");
 		}
@@ -43,7 +48,7 @@ public class ShoppingBasketInputDataParser {
 		return descr;
 	}
 
-	private static ProductCategory inferCategory(String descr) {
+	private ProductCategory inferCategory(String descr) {
 		if (descr.contains("chocolate")) {
 			return ProductCategory.FOOD;
 		}

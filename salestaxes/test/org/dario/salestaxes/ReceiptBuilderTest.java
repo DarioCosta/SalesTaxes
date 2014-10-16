@@ -1,29 +1,28 @@
 package org.dario.salestaxes;
 
-import java.util.Locale;
+import org.dario.salestaxes.io.DataParseException;
+import org.dario.salestaxes.policies.RoundPolicy;
+import org.dario.salestaxes.policies.SalesTaxesPolicy;
+import org.dario.salestaxes.policies.strategies.TotalTaxesStrategy;
 
 import junit.framework.TestCase;
 
-public class ReceiptPrinterTest extends TestCase {
+public class ReceiptBuilderTest extends TestCase {
 
-	private ReceiptPrinter printer;
+	private ReceiptBuilder builder;
 
 	protected void setUp() throws Exception {
-		super.setUp();
-		// Set English locale otherwise double values are presented with ,
-		// (comma) instead of . (dot) separator
-		Locale.setDefault(new Locale("en"));
-		printer = new ReceiptPrinter(new RoundedSalesTaxesStrategy());
+		builder = new ReceiptBuilder(new SalesTaxesPolicy(
+				new TotalTaxesStrategy(), new RoundPolicy()));
 	}
 
 	private boolean test(String input, String output) {
 		String result = "";
 		try {
-			result = printer.getFormattedReceipt(input);
-			System.out.println(result);
+			result = builder.getFormattedReceipt(input);
 		} catch (DataParseException e) {
 			e.printStackTrace();
-			fail("Input 1 failed");
+			fail("Input parse failed");
 		}
 		return output.equals(result);
 	}

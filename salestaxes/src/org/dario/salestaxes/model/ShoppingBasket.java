@@ -1,4 +1,4 @@
-package org.dario.salestaxes;
+package org.dario.salestaxes.model;
 
 import java.util.ArrayList;
 import java.util.Iterator;

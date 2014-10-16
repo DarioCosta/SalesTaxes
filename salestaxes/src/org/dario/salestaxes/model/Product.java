@@ -1,4 +1,4 @@
-package org.dario.salestaxes;
+package org.dario.salestaxes.model;
 
 public class Product {
 

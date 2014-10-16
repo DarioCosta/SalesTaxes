@@ -1,7 +1,11 @@
-package org.dario.salestaxes;
+package org.dario.salestaxes.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.dario.salestaxes.policies.RoundPolicy;
+import org.dario.salestaxes.policies.SalesTaxesPolicy;
+import org.dario.salestaxes.policies.strategies.TotalTaxesStrategy;
 
 public class Receipt {
 	private List<ReceiptItem> receiptItems = new ArrayList<ReceiptItem>();
@@ -9,23 +13,23 @@ public class Receipt {
 	private double totalTaxes;
 
 	public Receipt(ShoppingBasket shoppingBasket,
-			SalesTaxesStrategy salesTaxesStrategy) {
+			SalesTaxesPolicy salesTaxesPolicy) {
 		if (shoppingBasket == null) {
 			shoppingBasket = new ShoppingBasket();
 		}
-		if (salesTaxesStrategy == null) {
-			salesTaxesStrategy = new RoundedSalesTaxesStrategy();
+		if (salesTaxesPolicy == null) {
+			salesTaxesPolicy = new SalesTaxesPolicy(new TotalTaxesStrategy(), new RoundPolicy()) ;
 		}
 
-		fillIn(shoppingBasket, salesTaxesStrategy);
+		fillIn(shoppingBasket, salesTaxesPolicy);
 	}
 
 	private void fillIn(ShoppingBasket shoppingBasket,
-			SalesTaxesStrategy salesTaxesStrategy) {
+			SalesTaxesPolicy salesTaxesPolicy) {
 		synchronized (shoppingBasket) {
 			ReceiptItem current = null;
 			for (Purchase p : shoppingBasket) {
-				double tax = salesTaxesStrategy.getTaxes(p);
+				double tax = salesTaxesPolicy.getTaxes(p);
 				current = new ReceiptItem(p, tax);
 				receiptItems.add(current);
 				totalTaxes += tax;

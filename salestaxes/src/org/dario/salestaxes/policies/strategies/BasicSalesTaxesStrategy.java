@@ -1,6 +1,9 @@
-package org.dario.salestaxes;
+package org.dario.salestaxes.policies.strategies;
 
-public class BasicSalesTaxesStrategy implements SalesTaxesStrategy {
+import org.dario.salestaxes.model.ProductCategory;
+import org.dario.salestaxes.model.Purchase;
+
+public class BasicSalesTaxesStrategy implements SalesTaxesPolicyStrategy {
 
 	@Override
 	public double getTaxes(Purchase p) {
