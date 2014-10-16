@@ -48,9 +48,9 @@ public class ReceiptBuilder {
 		input[1] = "1 imported box of chocolates at 10.00\n1 imported bottle of perfume at 47.50";
 		input[2] = "1 imported bottle of perfume at 27.99\n1 bottle of perfume at 18.99\n1 packet of headache pills at 9.75\n1 box of imported chocolates at 11.25";
 		try {
-			ReceiptBuilder printer = new ReceiptBuilder();
+			ReceiptBuilder builder = new ReceiptBuilder();
 			for (String in : input) {
-				System.out.println(printer.getFormattedReceipt(in));
+				System.out.println(builder.getFormattedReceipt(in));
 				System.out.println();
 			}
 		} catch (DataParseException e) {
