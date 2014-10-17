@@ -6,13 +6,6 @@ public class TotalTaxesStrategy implements SalesTaxesPolicyStrategy {
 
 	private SalesTaxesPolicyStrategy[] compositeTaxStrategy;
 
-	public TotalTaxesStrategy() {
-		this(null);
-		compositeTaxStrategy = new SalesTaxesPolicyStrategy[2];
-		compositeTaxStrategy[0] = new BasicSalesTaxesStrategy();
-		compositeTaxStrategy[1] = new ImportDutyStrategy();
-	}
-
 	public TotalTaxesStrategy(SalesTaxesPolicyStrategy[] compositeTaxStrategy) {
 		if (compositeTaxStrategy == null) {
 			compositeTaxStrategy = new SalesTaxesPolicyStrategy[0];

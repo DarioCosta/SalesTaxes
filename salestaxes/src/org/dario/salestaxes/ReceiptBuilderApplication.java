@@ -5,8 +5,6 @@ import java.util.Locale;
 import org.dario.salestaxes.io.DataParseException;
 import org.dario.salestaxes.io.StandardReceiptFormatter;
 import org.dario.salestaxes.io.StandardShoppingBasketInputDataParser;
-import org.dario.salestaxes.policies.RoundPolicy;
-import org.dario.salestaxes.policies.SalesTaxesPolicy;
 import org.dario.salestaxes.policies.strategies.BasicSalesTaxesStrategy;
 import org.dario.salestaxes.policies.strategies.ImportDutyStrategy;
 import org.dario.salestaxes.policies.strategies.RoundPolicyStrategy;
@@ -18,27 +16,29 @@ public class ReceiptBuilderApplication {
 
 	private static Configuration config;
 
-	public static void setup(){
+	public static void setup() {
 		// Set English locale otherwise double values might eventually be
 		// presented with ,
 		// (comma) instead of . (dot) separator
 		Locale.setDefault(new Locale("en"));
 
-		config=new Configuration();
+		config = new Configuration();
 		config.setDataParser(new StandardShoppingBasketInputDataParser());
 		config.setReceiptFormatter(new StandardReceiptFormatter());
 
-		SalesTaxesPolicyStrategy[] compositeTaxStrategy = new SalesTaxesPolicyStrategy[2];
-		compositeTaxStrategy[0] = new BasicSalesTaxesStrategy();
-		compositeTaxStrategy[1] = new ImportDutyStrategy();
-		SalesTaxesPolicyStrategy salesTaxesStrategy=new TotalTaxesStrategy(compositeTaxStrategy);
+		try {
+			SalesTaxesPolicyStrategy[] compositeTaxStrategy = new SalesTaxesPolicyStrategy[2];
+			compositeTaxStrategy[0] = new BasicSalesTaxesStrategy();
+			compositeTaxStrategy[1] = new ImportDutyStrategy();
+			SalesTaxesPolicyStrategy salesTaxesStrategy = new TotalTaxesStrategy(
+					compositeTaxStrategy);
+			config.setSalesTaxesPolicyStrategy(salesTaxesStrategy);
 
-		RoundPolicyStrategy roundPolicyStrategy = new RoundToHigher5PolicyStrategy();
-		RoundPolicy roundPolicy = new RoundPolicy(roundPolicyStrategy);
-		
-		SalesTaxesPolicy salesTaxesPolicy = new SalesTaxesPolicy(salesTaxesStrategy, roundPolicy);
-
-		config.setSalesTaxesPolicy(salesTaxesPolicy);
+			RoundPolicyStrategy roundPolicyStrategy = new RoundToHigher5PolicyStrategy();
+			config.setRoundPolicyStrategy(roundPolicyStrategy);
+		} catch (IllegalConfigurationException ex) {
+			ex.printStackTrace();
+		}
 	}
 
 	public static Configuration getConfiguration() {
