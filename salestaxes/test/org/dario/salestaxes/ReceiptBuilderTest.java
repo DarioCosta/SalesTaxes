@@ -1,9 +1,6 @@
 package org.dario.salestaxes;
 
 import org.dario.salestaxes.io.DataParseException;
-import org.dario.salestaxes.policies.RoundPolicy;
-import org.dario.salestaxes.policies.SalesTaxesPolicy;
-import org.dario.salestaxes.policies.strategies.TotalTaxesStrategy;
 
 import junit.framework.TestCase;
 
@@ -12,8 +9,9 @@ public class ReceiptBuilderTest extends TestCase {
 	private ReceiptBuilder builder;
 
 	protected void setUp() throws Exception {
-		builder = new ReceiptBuilder(new SalesTaxesPolicy(
-				new TotalTaxesStrategy(), new RoundPolicy()));
+		ReceiptBuilderApplication.setup();
+		Configuration config=ReceiptBuilderApplication.getConfiguration();
+		builder = new ReceiptBuilder(config);
 	}
 
 	private boolean test(String input, String output) {
