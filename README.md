@@ -49,4 +49,4 @@ Total: 74.68<br>
 My assumptions:
 - Output 1: I assume the first item in the Receipt has a typo (blank space between "book" and ":"). It should read: "1 book: 12.49"
 - Since there is no specification in the description and all examples in test cases have a single product for any purchase line, I assume that prices in input data refer to the total purchase.
-- I based input data feeding mechanism on hard coded data within a unit test as suggested. I used JUnit3. ReceiptBuilder class also provides a main method with hard coded input tests for convenience.
+- I based input data feeding mechanism on hard coded data within a unit test as suggested. I used JUnit3. ReceiptBuilderApplication class provides a main method with hard coded input tests for convenience.
